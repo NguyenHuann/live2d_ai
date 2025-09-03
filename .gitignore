@@ -1,0 +1,49 @@
+# Python venv và cache
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Log & temp
+*.log
+*.tmp
+*.swp
+
+# Build / package
+build/
+dist/
+*.egg-info/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.iml
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Static assets nặng hoặc tạo trong runtime
+static/audio/**       # file wav/mp3 generate
+!static/audio/.gitkeep
+
+# Live2D models (nặng, bản quyền)
+static/live2d/**
+!static/live2d/.gitkeep
+
+# Piper / voice models (nếu có)
+static/piper/**
+!static/piper/.gitkeep
+
+# Vendor libs (có thể tải lại qua script)
+static/vendor/**
+!static/vendor/.gitkeep
+
+static/audio/*
+
+# Giữ lại thư mục (để repo vẫn có cấu trúc)
+!static/audio/.gitkeep
