@@ -131,7 +131,3 @@ live2d_ai/
 └─ README.md
 ```
 
-```
-
-Bạn có muốn mình giữ lại cả **README tiếng Việt** song song (song ngữ Việt – Anh) trong file, hay bạn chỉ cần bản tiếng Anh thôi?
-```
