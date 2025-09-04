@@ -1,27 +1,28 @@
 # 🎭 Hana • AI Live2D Chat
 
-Dự án này xây dựng một **AI VTuber** đơn giản bằng **FastAPI + Live2D + Ollama + TTS**, có thể trò chuyện và hiển thị nhân vật ảo với cử động môi theo giọng nói.
+This project builds a simple **AI VTuber** using **FastAPI + Live2D + Ollama + TTS**, capable of chatting and displaying a virtual character with lip-sync animations.
 
 ---
 
-## 🚀 Tính năng
-- Backend **FastAPI** phục vụ API chat và sinh giọng nói (TTS).
-- Frontend tĩnh: **HTML/CSS/JS** + **PixiJS + Live2D** để hiển thị nhân vật.
-- Hỗ trợ **lip-sync** (cử động miệng theo âm thanh).
-- Chạy LLM offline bằng **Ollama** (ví dụ: LLaMA 3.1).
-- Dễ dàng thay đổi model Live2D và giọng nói.
+## 🚀 Features
+- **FastAPI** backend providing chat API and text-to-speech (TTS).
+- Static frontend: **HTML/CSS/JS** + **PixiJS + Live2D** for character rendering.
+- Supports **lip-sync** (mouth movement according to audio).
+- Runs LLM offline with **Ollama** (e.g., LLaMA 3.1).
+- Easy to change Live2D models and voices.
 
 ---
 
-## 📦 Cài đặt
+## 📦 Installation
 
 ### 1. Clone repo
 ```bash
 git clone https://github.com/NguyenHuann/live2d_ai.git
 cd live2d_ai
-```
+````
 
-### 2. Cài đặt môi trường và cài dependencies
+### 2. Setup environment and install dependencies
+
 ```bash
 python -m venv .venv
 .venv\Scripts\activate      # Windows
@@ -30,11 +31,12 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 3. Chuẩn bị file cấu hình
+### 3. Prepare configuration file
 
-Tạo file .env trong root (chứa API key hoặc config, nếu cần). Ví dụ:
+Create a `.env` file in the root (containing API keys or configs, if needed). Example:
+
 ```env
-# LLM qua Ollama
+# LLM via Ollama
 OLLAMA_HOST=http://127.0.0.1:11434
 OLLAMA_MODEL=llama3.1:8b-instruct-q4_K_M
 LLM_TEMPERATURE=0.6
@@ -44,32 +46,38 @@ GTTS_LANG=vi
 GTTS_SLOW=false
 ```
 
-## 📥 Cài đặt Ollama
+## 📥 Install Ollama
 
-### 1. Tải và cài Ollama
+### 1. Download and install Ollama
 
-- Windows / MacOS: tải từ [Ollama](https://ollama.ai/download)
-- Linux :
+* Windows / MacOS: download from [Ollama](https://ollama.ai/download)
+* Linux:
+
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-### 2. Kéo (pull) model
-Ví dụ: Llama 3.1 8B Instruct (quantized Q4_K_M)
+### 2. Pull a model
+
+Example: Llama 3.1 8B Instruct (quantized Q4\_K\_M)
+
 ```bash
 ollama pull llama3.1:8b-instruct-q4_K_M
 ```
 
 ### 3. Test model
+
 ```bash
 ollama run llama3.1:8b-instruct-q4_K_M
 ```
 
-## 🎨 Thêm model Live2D
-Copy model vào thư mục:
+## 🎨 Add Live2D model
+
+Copy the model into:
+
 ```php-template
-static/live2d/<TênModel>/
- ├─ <TênModel>.model3.json
+static/live2d/<ModelName>/
+ ├─ <ModelName>.model3.json
  ├─ *.moc3
  ├─ *.physics3.json
  ├─ textures/
@@ -77,7 +85,9 @@ static/live2d/<TênModel>/
 ```
 
 ## 📚 Vendor libraries (frontend)
-Nếu chưa có, tải vendor libraries:
+
+If missing, download vendor libraries:
+
 ```powershell
 # PixiJS
 Invoke-WebRequest https://unpkg.com/pixi.js@7/dist/pixi.min.js -OutFile static/vendor/pixi/pixi.min.js
@@ -91,32 +101,37 @@ Invoke-WebRequest https://raw.githubusercontent.com/digitalninja-ro/pixi-live2d-
 Invoke-WebRequest https://raw.githubusercontent.com/digitalninja-ro/pixi-live2d-display/master/demo/lib/live2dcubismcore.min.js -OutFile static/vendor/live2d/live2dcubismcore.min.js
 ```
 
-## ▶️ Chạy server
+## ▶️ Run server
+
 ```bash
 uvicorn main:app --reload --port 8000
 ```
-Mở trình duyệt tại <http://localhost:8000>
 
-## 🗂️ Cấu trúc thư mục
+Open browser at [http://localhost:8000](http://localhost:8000)
+
+## 🗂️ Project structure
+
 ```csharp
 live2d_ai/
 ├─ .venv/                # Virtual environment
 ├─ static/
-│  ├─ audio/             # File âm thanh sinh ra
-│  ├─ live2d/            # Model Live2D
-│  ├─ vendor/            # Thư viện frontend tải về
-│  ├─ index.html          # Giao diện chính
+│  ├─ audio/             # Generated audio files
+│  ├─ live2d/            # Live2D models
+│  ├─ vendor/            # Downloaded frontend libraries
+│  ├─ index.html          # Main interface
 │  ├─ styles.css          # CSS
-│  ├─ main.js             # JS xử lý chat
-│  └─ live2d.js           # JS khởi tạo Live2D + lip-sync
+│  ├─ main.js             # Chat handling JS
+│  └─ live2d.js           # Live2D + lip-sync initialization JS
 ├─ main.py                # FastAPI entrypoint
 ├─ llm.py                 # LLM chat logic (Ollama API)
 ├─ tts.py                 # TTS
-├─ models.py              # Kiểu dữ liệu
-├─ utils.py               # Helper
+├─ models.py              # Data models
+├─ utils.py               # Helpers
 ├─ requirements.txt
 └─ README.md
 ```
 
+```
 
-
+Bạn có muốn mình giữ lại cả **README tiếng Việt** song song (song ngữ Việt – Anh) trong file, hay bạn chỉ cần bản tiếng Anh thôi?
+```
