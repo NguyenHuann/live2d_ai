@@ -1,6 +1,6 @@
 # 🎭 Hana • AI Live2D Chat
 
-This project builds a simple **AI VTuber** using **FastAPI + Live2D + Ollama + TTS**, capable of chatting and displaying a virtual character with lip-sync animations.
+This project builds a simple **AI VTuber** using **FastAPI + Live2D + Gemini API + TTS**, capable of chatting and displaying a virtual character with lip-sync animations.
 
 ---
 
@@ -8,7 +8,7 @@ This project builds a simple **AI VTuber** using **FastAPI + Live2D + Ollama + T
 - **FastAPI** backend providing chat API and text-to-speech (TTS).
 - Static frontend: **HTML/CSS/JS** + **PixiJS + Live2D** for character rendering.
 - Supports **lip-sync** (mouth movement according to audio).
-- Runs LLM offline with **Ollama** (e.g., LLaMA 3.1).
+- Uses **Google Gemini API** for text generation.
 - Easy to change Live2D models and voices.
 
 ---
@@ -33,12 +33,12 @@ pip install -r requirements.txt
 
 ### 3. Prepare configuration file
 
-Create a `.env` file in the root (containing API keys or configs, if needed). Example:
+Create a `.env` file in the root (containing API keys or configs). Example:
 
 ```env
-# LLM via Ollama
-OLLAMA_HOST=http://127.0.0.1:11434
-OLLAMA_MODEL=llama3.1:8b-instruct-q4_K_M
+# LLM via Gemini
+GEMINI_API_KEY=your_api_key_here
+GEMINI_MODEL=gemini-pro
 LLM_TEMPERATURE=0.6
 
 # gTTS
@@ -46,30 +46,9 @@ GTTS_LANG=vi
 GTTS_SLOW=false
 ```
 
-## 📥 Install Ollama
+## 🔑 Gemini API
 
-### 1. Download and install Ollama
-
-* Windows / MacOS: download from [Ollama](https://ollama.ai/download)
-* Linux:
-
-```bash
-curl -fsSL https://ollama.com/install.sh | sh
-```
-
-### 2. Pull a model
-
-Example: Llama 3.1 8B Instruct (quantized Q4\_K\_M)
-
-```bash
-ollama pull llama3.1:8b-instruct-q4_K_M
-```
-
-### 3. Test model
-
-```bash
-ollama run llama3.1:8b-instruct-q4_K_M
-```
+Create an API key at [Google AI Studio](https://aistudio.google.com/) and set `GEMINI_API_KEY` in your `.env` file.
 
 ## 🎨 Add Live2D model
 
@@ -123,7 +102,7 @@ live2d_ai/
 │  ├─ main.js             # Chat handling JS
 │  └─ live2d.js           # Live2D + lip-sync initialization JS
 ├─ main.py                # FastAPI entrypoint
-├─ llm.py                 # LLM chat logic (Ollama API)
+├─ llm.py                 # LLM chat logic (Gemini API)
 ├─ tts.py                 # TTS
 ├─ models.py              # Data models
 ├─ utils.py               # Helpers
