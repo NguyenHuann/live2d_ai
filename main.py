@@ -6,11 +6,11 @@ from pathlib import Path
 
 from utils import init_env_and_dirs
 from models import ChatRequest, ChatResponse
-from llm import chat_with_ollama, save_turn
+from llm import chat_with_gemini, save_turn
 from tts import synthesize_mp3
 
 init_env_and_dirs()
-app = FastAPI(title="AI Live2D Backend (Ollama + gTTS)")
+app = FastAPI(title="AI Live2D Backend (Gemini + gTTS)")
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,7 +35,7 @@ async def api_chat(req: ChatRequest, request: Request):
     sid = req.session_id or request.client.host
     try:
         save_turn(sid, "user", req.message)
-        ai_text = chat_with_ollama(sid, req.message)
+        ai_text = chat_with_gemini(sid, req.message)
         mp3_path = synthesize_mp3(ai_text)
         if not mp3_path.exists() or mp3_path.stat().st_size < 128:
             raise RuntimeError("Audio file empty.")
